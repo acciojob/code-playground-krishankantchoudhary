@@ -15,7 +15,7 @@ const App = () => {
         <p>You are not authenticated, Please login first</p>
       )}
 
-      {/* ✅ LINKS MUST ALWAYS EXIST */}
+      {/* LINKS MUST ALWAYS EXIST */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -44,15 +44,13 @@ const App = () => {
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
-        {/* PLAYGROUND (PROTECTED) */}
+        {/* PLAYGROUND (NO REDIRECT HERE) */}
         <Route
           path="/playground"
           element={
             isAuthenticated ? (
               <Playground setIsAuthenticated={setIsAuthenticated} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            ) : null
           }
         />
       </Routes>
