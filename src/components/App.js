@@ -10,16 +10,13 @@ const App = () => {
   return (
     <div className="main-container">
 
-      {/* 🔑 SAME <p> ALWAYS EXISTS */}
-      <p style={{ display: isAuthenticated ? "none" : "block" }}>
-        You are not authenticated, Please login first
+      <p>
+        {isAuthenticated
+          ? "Logged in, Now you can enter Playground"
+          : "You are not authenticated, Please login first"}
       </p>
 
-      <p style={{ display: isAuthenticated ? "block" : "none" }}>
-        Logged in, Now you can enter Playground
-      </p>
-
-      {/* LINKS MUST ALWAYS EXIST */}
+      {/* 🔑 UL STRUCTURE CYPRESS EXPECTS */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -27,6 +24,11 @@ const App = () => {
         <li>
           <Link to="/login">Login</Link>
         </li>
+
+        {/* 🔥 THIS IS THE MISSING PIECE */}
+        {isAuthenticated && (
+          <li>Hi Welcome to Code PlayGround</li>
+        )}
       </ul>
 
       <Routes>
