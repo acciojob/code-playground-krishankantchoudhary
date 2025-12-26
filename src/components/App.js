@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Playground from "./Playground";
-import PrivateRoute from "./PrivateRoute";
 import "../styles/App.css";
 
 const App = () => {
@@ -10,22 +9,24 @@ const App = () => {
 
   return (
     <div className="main-container">
-      
-
       {isAuthenticated ? (
-        <>
-          <p><b>Logged in, Now you can enter Playground</b></p>
-          <ul>
-            <li><Link to="/playground">PlayGround</Link></li>
-            <li><Link to="/login">Login</Link></li>
-          </ul>
-        </>
+        <p><b>Logged in, Now you can enter Playground</b></p>
       ) : (
         <p>You are not authenticated, Please login first</p>
       )}
 
+      {/* ✅ LINKS MUST ALWAYS EXIST */}
+      <ul>
+        <li>
+          <Link to="/playground">PlayGround</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      </ul>
+
       <Routes>
-        {/* 🔑 ROOT ROUTE (VERY IMPORTANT) */}
+        {/* ROOT */}
         <Route
           path="/"
           element={
@@ -37,17 +38,21 @@ const App = () => {
           }
         />
 
+        {/* LOGIN */}
         <Route
           path="/login"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
+        {/* PLAYGROUND (PROTECTED) */}
         <Route
           path="/playground"
           element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
+            isAuthenticated ? (
               <Playground setIsAuthenticated={setIsAuthenticated} />
-            </PrivateRoute>
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
       </Routes>
