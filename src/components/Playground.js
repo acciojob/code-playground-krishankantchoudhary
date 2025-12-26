@@ -6,7 +6,7 @@ const Playground = ({ setIsAuthenticated }) => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    navigate("/login");
+    navigate("/"); // 🔑 IMPORTANT CHANGE
   };
 
   return (
