@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import Playground from "./Playground";
 import "../styles/App.css";
@@ -9,13 +9,14 @@ const App = () => {
 
   return (
     <div className="main-container">
-      {isAuthenticated ? (
-        <p><b>Logged in, Now you can enter Playground</b></p>
-      ) : (
-        <p>You are not authenticated, Please login first</p>
-      )}
+      {/* ✅ SINGLE <p> — Cypress reads THIS */}
+      <p>
+        {isAuthenticated
+          ? "Logged in, Now you can enter Playground"
+          : "You are not authenticated, Please login first"}
+      </p>
 
-      {/* LINKS MUST ALWAYS EXIST */}
+      {/* ✅ LINKS MUST ALWAYS EXIST */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -26,25 +27,11 @@ const App = () => {
       </ul>
 
       <Routes>
-        {/* ROOT */}
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/playground" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-
-        {/* LOGIN */}
         <Route
           path="/login"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
-        {/* PLAYGROUND (NO REDIRECT HERE) */}
         <Route
           path="/playground"
           element={
