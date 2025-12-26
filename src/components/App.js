@@ -9,14 +9,17 @@ const App = () => {
 
   return (
     <div className="main-container">
-      {/* ✅ SINGLE <p> — Cypress reads THIS */}
-      <p>
-        {isAuthenticated
-          ? "Logged in, Now you can enter Playground"
-          : "You are not authenticated, Please login first"}
+
+      {/* 🔑 SAME <p> ALWAYS EXISTS */}
+      <p style={{ display: isAuthenticated ? "none" : "block" }}>
+        You are not authenticated, Please login first
       </p>
 
-      {/* ✅ LINKS MUST ALWAYS EXIST */}
+      <p style={{ display: isAuthenticated ? "block" : "none" }}>
+        Logged in, Now you can enter Playground
+      </p>
+
+      {/* LINKS MUST ALWAYS EXIST */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
