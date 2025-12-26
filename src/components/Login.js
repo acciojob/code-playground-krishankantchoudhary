@@ -6,13 +6,13 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleLogin = () => {
     setIsAuthenticated(true);
-    navigate("/");
+    navigate("/playground");
   };
 
   return (
     <div>
-      <h3>Login Page</h3>
-      <button onClick={handleLogin}>Login</button>
+      <h3>Login</h3>
+      <button onClick={handleLogin}>Log In</button>
     </div>
   );
 };
