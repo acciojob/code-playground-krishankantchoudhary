@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Login from "./Login";
-import Home from "./Home";
+import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
 import "../styles/App.css";
 
@@ -10,31 +10,43 @@ const App = () => {
 
   return (
     <div className="main-container">
-      <h2>Code Playground</h2>
+      
 
-      <nav>
-        <Link to="/login">Login</Link> |{" "}
-        <Link to="/">Home</Link>
-      </nav>
-
-      <p>
-        Authentication Status:{" "}
-        <strong>
-          {isAuthenticated ? "Authenticated" : "Not Authenticated"}
-        </strong>
-      </p>
+      {isAuthenticated ? (
+        <>
+          <p><b>Logged in, Now you can enter Playground</b></p>
+          <ul>
+            <li><Link to="/playground">PlayGround</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+        </>
+      ) : (
+        <p>You are not authenticated, Please login first</p>
+      )}
 
       <Routes>
+        {/* 🔑 ROOT ROUTE (VERY IMPORTANT) */}
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/playground" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
         <Route
           path="/login"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
         <Route
-          path="/"
+          path="/playground"
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Home />
+              <Playground setIsAuthenticated={setIsAuthenticated} />
             </PrivateRoute>
           }
         />
